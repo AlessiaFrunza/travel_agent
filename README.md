@@ -9,3 +9,4 @@ This project follows the following branching strategy:
 - `bugfix/*` are also short lived branches created for fixes in preparing releases
 
 ![Git flow that this project follows (image created  by author)](./graphics/git_flow.png)
+
