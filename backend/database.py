@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import sessionmaker, declarative_base, Session
 
 load_dotenv("../.env")
 
@@ -23,3 +23,6 @@ def get_db():
         yield db
     finally:
         db.close()
+
+def get_user(db: Session, username: str):
+    return db.query()

@@ -1,4 +1,7 @@
+from typing import Annotated
+
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from database import get_db
 from models.trip import Trip as TripModel
@@ -6,9 +9,10 @@ from schemas.trip import Trip as TripSchema
 from schemas.trip import TripCreate, TripUpdate
 
 router = APIRouter(prefix="/trips", tags=["trips"])
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/token")
 
 @router.get("/", response_model=list[TripSchema])
-def read_list_trip(db: Session = Depends(get_db)):
+def read_list_trip(token: Annotated[str, Depends(oauth2_scheme)], db: Session = Depends(get_db)):
     return db.query(TripModel).all()
 
 @router.get("/{trip_id}", response_model=TripSchema)
